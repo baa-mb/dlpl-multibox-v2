@@ -38,7 +38,7 @@ function neop_scroll_zch (snr:number,zch_str:string="A",color:number,abstand:num
             //console.log("zahl= "+zahl+" Zeile="+zeile+" mx="+mx)
             // for (let bit=0;bit<mx;bit++) {
             // for (let bit=mx-1;bit>=0;bit--) {
-            for (let bit=mx-abstand;bit>=0;bit--) {
+            for (let bit=mx+abstand;bit>=0;bit--) {
                 let sss=zahl & Math.pow(2,bit);
                 a_bin_zahl.push(sss>0 ? 1:0);
             }
@@ -82,7 +82,7 @@ for (let pos=0;pos<=len;pos++) {
         //}
         //pause (1000)
     })
-    pause (200)
+    pause (strip_pause/10)
     arr_neop_strips[snr].show()
     // pause (2000)
     // arr_neop_strips[snr].clear()
@@ -299,31 +299,6 @@ function loesche_matrix(snr:number) {
     arr_neop_strips[snr].clear()
     arr_neop_strips[snr].show()
 }
-// Create and INIT #####################################
-// function init_neop_create(snr:number) {
-//     let anz=arr_neop_strips.length;
-//     let pin=arr_neop_settings[snr].pin;
-//     let farbe=neopixel.colors(NeoPixelColors.Red);
-//     let pixelAnzahl=arr_neop_settings[snr].hwMatrix[0] * arr_neop_settings[snr].hwMatrix [1];
-
-//     let strip=neopixel.create(pin, pixelAnzahl, NeoPixelMode.RGB)
-//     // arr_neop_strips.push(strip)
-//     arr_neop_strips[snr]=strip
-//     strip.setBrightness(strip_helligkeit)
-
-//     //console.log("hell:"+strip_helligkeit);
-//     strip.clear()
-//     strip.show()
-
-// }
-
-
-// // function init_strip_serie() {
-// //     for (let i=0;i<neo_strip_anzahl;i++) {
-// //         init_neop_create(i);
-// //         // init_one_strip(i);
-// //     }
-// // }
 
 // muss sein, damit der index nicht fehlläuft
 function default_strip_data() {
@@ -348,7 +323,6 @@ function init_strip(nrMatrix:number,hwMatrix:number,pin:number) {
 }
 
 
-
 function set_helligkeit(helligkeit:number,zch_pause:number) {
     strip_helligkeit=helligkeit;
     strip_pause=zch_pause;
@@ -358,17 +332,19 @@ function set_helligkeit(helligkeit:number,zch_pause:number) {
     }
 }
 
+function set_system (sname:string) {
+    if (sname=="wolf") {
 
+    }
+
+
+}
 
 // testbetrieb
 function test() {
     init_strip(0,0,1) 
-set_helligkeit(200,1000)
-    
-    //neop_scroll_zch(0,"*Bachinger - Alois",NeoPixelColors.Red)
-
-    neop_scroll_zch(0,"ABCDEFGHIJKLMNO",NeoPixelColors.Green,0)
-
+    set_helligkeit(80,5000)
+    neop_scroll_zch(0,"ABCDEFGHIJKLMNOabcdefgh",NeoPixelColors.Green,-3)
     //neop_schreibe_zch(0,"B CA",NeoPixelColors.Red)
     //console.log(arr_zeichen_tabelle.length);
     //neop_schreibe_zch(0,"31,31,17,31,31",NeoPixelColors.Red)
@@ -390,11 +366,6 @@ interface neop  {
     pin: number;
     hwMatrix: Array<number>;
 }
-
-// interface zch_tab {
-//   bst: string;
-//   def: Array<number>;
-// }
 
 // hardwareeinstellungen ########################### 3 Matriken
 let arr_tech_matrix=[[8,8],[5,7],[16,16]];
